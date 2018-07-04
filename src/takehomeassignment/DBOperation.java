@@ -1026,7 +1026,7 @@ public class DBOperation {
     public boolean addStudentRegCourse(StudentCourseReg em){
         try {
             con = DriverManager.getConnection(url, username, password); //get the connection
-            String query = "INSERT INTO instructor VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO student_degree VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             pst = (PreparedStatement) con.prepareStatement(query);
 
             pst.setInt(1, em.getIndexNo()); //  add values th sql query

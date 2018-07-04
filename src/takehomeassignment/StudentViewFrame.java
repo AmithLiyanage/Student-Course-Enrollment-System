@@ -17,17 +17,15 @@ public class StudentViewFrame extends javax.swing.JFrame {
 
     int mousepX;
     int mousepY;
+    String s[];
     private String stuName;
-    
     ArrayList<StudentCourseReg> stList;
-    
     ArrayList<Subject> SubList1;
     ArrayList<Subject> SubList2;
     ArrayList<Subject> SubList3;
     ArrayList<Subject> SubList4;
-    
     DBOperation dbOps = new DBOperation();
-    
+
     /**
      * Creates new form StudentViewFrame
      */
@@ -38,41 +36,40 @@ public class StudentViewFrame extends javax.swing.JFrame {
         loadSubjects3();
         loadSubjects4();
     }
-    
+
     void loadSubjects1() {
         SubList1 = dbOps.getCSComSubject1();
-        System.out.println(SubList1.get(0));
         SubSelectionDetails1 SubDetails1 = new SubSelectionDetails1(SubList1);
         tblComSubjectSem1.setModel(SubDetails1);
     }
-    
+
     void loadSubjects2() {
         SubList2 = dbOps.getCSComSubject2();
         SubSelectionDetails2 SubDetails2 = new SubSelectionDetails2(SubList2);
         tblComSubjectSem2.setModel(SubDetails2);
     }
-    
+
     void loadSubjects3() {
         SubList3 = dbOps.getCSOptSubject1();
         SubSelectionDetails3 SubDetails3 = new SubSelectionDetails3(SubList3);
         tblOptSubjectSem1.setModel(SubDetails3);
     }
-    
+
     void loadSubjects4() {
         SubList4 = dbOps.getCSOptSubject2();
         SubSelectionDetails4 SubDetails4 = new SubSelectionDetails4(SubList4);
         tblOptSubjectSem2.setModel(SubDetails4);
     }
-   
-    void setStudentName(String name){
+
+    void setStudentName(String name) {
         StudentName.setText(name);
         stuName = StudentName.getText();
     }
-    
+
     public String getStuName() {
         return stuName;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -835,27 +832,44 @@ public class StudentViewFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnRegSem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegSem1ActionPerformed
-        String selected = SubList1.get(tblOptSubjectSem1.getSelectedRow()).getSubjectID(); 
-        System.out.println(selected);
-        
+        String selected = SubList3.get(tblOptSubjectSem1.getSelectedRow()).getSubjectID();
+        System.out.println("kkk "+selected);
+
         StudentCourseReg c = new StudentCourseReg();
-        
+
         c.setIndexNo(Integer.parseInt(stuName.toString()));
         c.setSemester(1);
-        c.setSubject1(SubList1(0));
-        c.setSubject2(ddYearType.getSelectedItem());
-        c.setSubject3(Integer.parseInt(ddSemesterType.getSelectedItem().toString()));
-        c.setSubject4(txtFees.getText());
-        c.setSubject5(txtLecturer.getText());
+//        for (int i=0; i<5; i++) {
+//            System.out.println(SubList1.get(i).getSubjectID());
+//            c.setSubject1(SubList1.get(i).getSubjectID());
+//            //s[i] = SubList1.get(i).getSubjectID();
+//        }
+//        c.setSubject1(SubList1.get(0).getSubjectID());
+//        c.setSubject2("123");
+//        c.setSubject3("1234");//SubList1.get(2).getSubjectID()
+//        c.setSubject4("x");//SubList1.get(3).getSubjectID()
+//        c.setSubject5("12345");
+        c.setSubject1(SubList1.get(0).getSubjectID());
+        c.setSubject2(SubList1.get(1).getSubjectID());
+        c.setSubject3(SubList1.get(2).getSubjectID());//SubList1.get(2).getSubjectID()
+        c.setSubject4(SubList1.get(3).getSubjectID());//SubList1.get(3).getSubjectID()
+        c.setSubject5(SubList1.get(4).getSubjectID());
+        System.out.println(SubList1.get(1).getSubjectID());
+//        c.setSubject1(s[0]);
+//        c.setSubject2(s[1]);
+//        c.setSubject3(s[2]);
+//        c.setSubject4(s[3]);
+//        c.setSubject5(s[4]);
         c.setSubject6(selected);
-        
+        c.setSubject7("");
+        System.out.println(selected);
         boolean result = dbOps.addStudentRegCourse(c);
-        
-        if(result){
+
+        if (result) {
             //Data Inserted Successfully
             JOptionPane.showMessageDialog(this, "Data Successfully Inserted !!");
             this.dispose();
-        }else{
+        } else {
             //Data Insert not Successful
             JOptionPane.showMessageDialog(this, "Oops, Error occured while Inserting");
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -864,7 +878,33 @@ public class StudentViewFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegSem1ActionPerformed
 
     private void btnRegSem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegSem2ActionPerformed
-        
+        String selected = SubList3.get(tblOptSubjectSem1.getSelectedRow()).getSubjectID();
+        System.out.println(selected);
+
+        StudentCourseReg c = new StudentCourseReg();
+
+        c.setIndexNo(Integer.parseInt(stuName.toString()));
+        c.setSemester(2);
+        for (int i=0; i<5; i++) {
+            s[i] = SubList1.get(i).getSubjectID();
+        }
+        c.setSubject1(s[0]);
+        c.setSubject2(s[1]);
+        c.setSubject3(s[2]);
+        c.setSubject4(s[3]);
+        c.setSubject5(s[4]);
+        c.setSubject6(selected);
+        boolean result = dbOps.addStudentRegCourse(c);
+
+        if (result) {
+            //Data Inserted Successfully
+            JOptionPane.showMessageDialog(this, "Data Successfully Inserted !!");
+            this.dispose();
+        } else {
+            //Data Insert not Successful
+            JOptionPane.showMessageDialog(this, "Oops, Error occured while Inserting");
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
     }//GEN-LAST:event_btnRegSem2ActionPerformed
 
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
@@ -973,9 +1013,7 @@ public class StudentViewFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
-
     /**
      * @return the stuName
      */
-
 }

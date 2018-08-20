@@ -21,7 +21,7 @@ public class DBOperation {
     String password = "";
     Connection con = null;
     PreparedStatement pst = null;
-    int index=0;
+    int index = 0;
     ResultSet rs = null;
 
     boolean addStudent(Student s) {
@@ -379,7 +379,6 @@ public class DBOperation {
                 cd.setCredit(rs.getInt(4));
                 list.add(cd);
             }
-            System.out.println(list);
             return list;
 
         } catch (Exception e) {
@@ -420,7 +419,6 @@ public class DBOperation {
                 cd.setCredit(rs.getInt(4));
                 list.add(cd);
             }
-            System.out.println(list);
             return list;
 
         } catch (Exception e) {
@@ -461,7 +459,6 @@ public class DBOperation {
                 cd.setCredit(rs.getInt(4));
                 list.add(cd);
             }
-            System.out.println(list);
             return list;
 
         } catch (Exception e) {
@@ -502,7 +499,98 @@ public class DBOperation {
                 cd.setCredit(rs.getInt(4));
                 list.add(cd);
             }
-            System.out.println(list);
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+            
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+    
+    ArrayList<StudentCourseReg> getCourseReg() {
+        try {
+            ArrayList<StudentCourseReg> list = new ArrayList<StudentCourseReg>();
+            
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "SELECT * FROM student_degree";
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            rs = pst.executeQuery();
+            while(rs.next()){
+                StudentCourseReg scr = new StudentCourseReg();
+                
+                scr.setIndexNo(rs.getInt(1));
+                scr.setSemester(rs.getInt(2));
+                scr.setSubject1(rs.getString(3));
+                scr.setSubject2(rs.getString(4));
+                scr.setSubject3(rs.getString(5));
+                scr.setSubject4(rs.getString(6));
+                scr.setSubject5(rs.getString(7));
+                scr.setSubject6(rs.getString(8));
+                scr.setSubject7(rs.getString(9));
+                scr.setFees(rs.getInt(10));
+                scr.setPayedOrNot(rs.getString(11));
+                list.add(scr);
+            }
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+            
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+    
+    ArrayList<Marks> getMarks() {
+        try {
+            ArrayList<Marks> list = new ArrayList<Marks>();
+            
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "SELECT * FROM result";
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            rs = pst.executeQuery();
+            while(rs.next()){
+                Marks m = new Marks();
+                
+                m.setIndexNo(rs.getInt(1));
+                m.setSemester(rs.getInt(2));
+                m.setSubject1(rs.getString(3));
+                m.setSubject2(rs.getString(4));
+                m.setSubject3(rs.getString(5));
+                m.setSubject4(rs.getString(6));
+                m.setSubject5(rs.getString(7));
+                m.setSubject6(rs.getString(8));
+                m.setGPA(rs.getDouble(9));
+                m.setEmail(rs.getString(10));
+                m.setSendOrNot(rs.getString(11));
+                list.add(m);
+            }
             return list;
 
         } catch (Exception e) {
@@ -542,7 +630,6 @@ public class DBOperation {
                 nu.setPassword(rs.getString(3));
                 list.add(nu);
             }
-            System.out.println(list);
             return list;
 
         } catch (Exception e) {
@@ -563,7 +650,52 @@ public class DBOperation {
         }
 
     }
+    
+    public boolean addSubject(Subject c) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "INSERT INTO subject VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            pst = (PreparedStatement) con.prepareStatement(query);
 
+            pst.setString(1, c.getSubjectID()); //  add values th sql query
+            pst.setString(2, c.getSubjectName()); //  add values th sql query
+            pst.setString(3, c.getDegree()); //  add values th sql query
+            pst.setInt(4, c.getFees()); //  add values th sql query
+            pst.setInt(5, c.getYear()); //  add values th sql query
+            pst.setInt(6, c.getSemester()); //  add values th sql query
+            pst.setString(7, c.getLecturer()); //  add values th sql query
+            pst.setString(8, c.getInstructors()); //  add values th sql query
+            pst.setString(9, c.getTimeSchedule()); //  add values th sql query
+            pst.setInt(10, c.getNoOfAssignment()); //  add values th sql query
+            pst.setInt(11, c.getCredit()); //  add values th sql query
+            pst.setString(12, c.getcompulsoryType()); //  add values th sql query
+            pst.setString(13, c.getPlaceLecture()); //  add values th sql query
+            pst.setString(14, c.getPlacePractical()); //  add values th sql query
+            pst.setString(15, c.getNote()); //  add values th sql query
+
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+    
     boolean addUndergraduateStudent(UndergraduateStudent us) {
         try {
             checkIndex();
@@ -620,7 +752,8 @@ public class DBOperation {
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println(e);
             return false;
 
         } finally {
@@ -750,6 +883,86 @@ public class DBOperation {
 
     }
     
+    public boolean addStudentRegCourse(StudentCourseReg em){
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "INSERT INTO student_degree VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            pst.setInt(1, em.getIndexNo()); //  add values th sql query
+            pst.setInt(2, em.getSemester()); //  add values th sql query
+            pst.setString(3, em.getSubject1()); //  add values th sql query
+            pst.setString(4, em.getSubject2()); //  add values th sql query
+            pst.setString(5, em.getSubject3()); //  add values th sql query
+            pst.setString(6, em.getSubject4()); //  add values th sql query
+            pst.setString(7, em.getSubject5()); //  add values th sql query
+            pst.setString(8, em.getSubject6()); //  add values th sql query
+            pst.setString(9, em.getSubject7()); //  add values th sql query
+            pst.setInt(10, em.getFees()); //  add values th sql query
+            pst.setString(11, em.getPayedOrNot()); //  add values th sql query
+
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
+    boolean addMarks(Marks m) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "INSERT INTO result VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            pst.setInt(1, m.getIndexNo()); //  add values th sql query
+            pst.setInt(2, m.getSemester()); //  add values th sql query
+            pst.setString(3, m.getSubject1()); //  add values th sql query
+            pst.setString(4, m.getSubject2()); //  add values th sql query
+            pst.setString(5, m.getSubject3()); //  add values th sql query
+            pst.setString(6, m.getSubject4()); //  add values th sql query
+            pst.setString(7, m.getSubject5()); //  add values th sql query
+            pst.setString(8, m.getSubject6()); //  add values th sql query
+            pst.setDouble(9, m.getGPA()); //  add values th sql query
+            pst.setString(10, m.getEmail()); //  add values th sql query
+            pst.setString(11, m.getSendOrNot()); //  add values th sql query
+            
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
     int checkUser(String index) {
         try {
             con = DriverManager.getConnection(url, username, password); //get the connection
@@ -817,6 +1030,40 @@ public class DBOperation {
 
     }
     
+    String getEmail(int indexNo) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String q = "SELECT email FROM student WHERE indexNo="+indexNo;
+            pst = (PreparedStatement) con.prepareStatement(q);
+
+            rs = pst.executeQuery();
+            
+            //String email= rs.getString(1);
+            while(rs.next()){
+                String email= rs.getString(1);
+                return email;
+            }
+          
+
+        } catch (Exception e) {
+            System.out.println(e);
+        
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return null;
+
+    }
+    
     int checkUserPassword(String name, String pass) {
         try {
             con = DriverManager.getConnection(url, username, password); //get the connection
@@ -826,11 +1073,6 @@ public class DBOperation {
             rs = pst.executeQuery(); // execute the sql query and insert the values to db table
             
             while(rs.next()){
-//                NewUser nu = new NewUser();
-//                
-//                nu.setUserID(rs.getString(1));
-//                nu.setType(rs.getString(2));
-//                nu.setPassword(rs.getString(3));
                 if((name.equals(rs.getString(1))) && (pass.equals(rs.getString(3))) ){
                     return 0;
                 }
@@ -841,6 +1083,116 @@ public class DBOperation {
             System.out.println(e);
             return 2;
             
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+    
+    boolean updateMarks(Marks m) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "UPDATE result SET sub1='"+m.getSubject1()+"', sub2='"+m.getSubject2()+"', sub3='"+m.getSubject3()+"', sub4='"+m.getSubject4()+"', sub5='"+m.getSubject5()+"', sub6='"+m.getSubject6()+"', gpa="+m.getGPA()+", email='"+m.getEmail()+"' WHERE indexNo="+m.getIndexNo()+" AND semester="+m.getSemester();
+            pst = (PreparedStatement) con.prepareStatement(query);
+            
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
+    boolean resetMarks(int index, int sem) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "UPDATE result SET sub1='-', sub2='-', sub3='-', sub4='-', sub5='-', sub6='-' WHERE indexNo="+index+" AND semester="+sem;
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
+    public boolean updateCourseRegPay(int index, int sem, String yn) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "UPDATE student_degree SET payedOrNot='"+yn+"' WHERE indexNo="+index+" AND semester="+sem;
+            pst = (PreparedStatement) con.prepareStatement(query);
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+    }
+    
+    public boolean updateMarksSend(int index, int sem, String yn) {
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "UPDATE result SET sendOrNot='"+yn+"' WHERE indexNo="+index+" AND semester="+sem;
+            pst = (PreparedStatement) con.prepareStatement(query);
+            pst.executeUpdate(); // execute the sql query and insert the values to db table
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
         } finally {
             try {
                 if (pst != null) {
@@ -885,14 +1237,12 @@ public class DBOperation {
     
     public boolean updateUndergraduateStudent(UndergraduateStudent em){
         try {
-            System.out.println("1");
             checkIndex();
             con = DriverManager.getConnection(url, username, password); //get the connection
             String query = "UPDATE undergraduate_student SET year="+em.getALYear()+", shy='"+em.getShy()+"', subject1='"+em.getSubject1()+"', subject2='"+em.getSubject2()+"', subject3='"+em.getSubject3()+"', generalEnglish='"+em.getGeneralEnglish()+"', zScore='"+em.getzScore()+"' WHERE indexNo="+em.getIndexNo();
             pst = (PreparedStatement) con.prepareStatement(query);
-            System.out.println("2");
+
             pst.executeUpdate(); // execute the sql query and insert the values to db table
-            System.out.println("3");
             return true;
 
         } catch (Exception e) {
@@ -915,14 +1265,12 @@ public class DBOperation {
     
     public boolean updatePostgraduateStudent(PostgraduateStudent em){
         try {
-            System.out.println("1");
             checkIndex();
             con = DriverManager.getConnection(url, username, password); //get the connection
             String query = "UPDATE postgraduate_student SET qualificationType='"+em.getQualificationType()+"', institute='"+em.getInstitute()+"', yearOfCompletion="+em.getYearOfCompletion()+", status='"+em.getStatus()+"' WHERE indexNo="+em.getIndexNo();
             pst = (PreparedStatement) con.prepareStatement(query);
-            System.out.println("2");
+            
             pst.executeUpdate(); // execute the sql query and insert the values to db table
-            System.out.println("3");
             return true;
 
         } catch (Exception e) {
@@ -1001,7 +1349,7 @@ public class DBOperation {
             String a = em.getOldCourseID();
             String query = "UPDATE subject SET subjectID='"+em.getSubjectID()+"', subjectName='"+em.getSubjectName()+"', degree='"+em.getDegree()+"', year='"+em.getYear()+"', semester='"+em.getSemester()+"', fees='"+em.getFees()+"', lecturer='"+em.getLecturer()+"', instructors='"+em.getInstructors()+"', timeSchedule='"+em.getTimeSchedule()+"', noOfAssignment="+em.getNoOfAssignment()+", credit="+em.getCredit()+", compulsoryOrNot='"+em.getcompulsoryType()+"', placeLecture='"+em.getPlaceLecture()+"', placePractical='"+em.getPlacePractical()+"', note='"+em.getNote()+"' WHERE subjectID='"+a+"'";
             pst = (PreparedStatement) con.prepareStatement(query);
-            System.out.println("--- DB ----"+pst);
+
             pst.executeUpdate(); // execute the sql query and insert the values to db table
             return true;
 
@@ -1023,23 +1371,41 @@ public class DBOperation {
         }
     }
     
-    public boolean addStudentRegCourse(StudentCourseReg em){
+    public boolean deleteStuCourseReg(int index, int sem){
         try {
             con = DriverManager.getConnection(url, username, password); //get the connection
-            String query = "INSERT INTO student_degree VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "DELETE FROM student_degree WHERE indexNo="+index+" AND semester="+sem;
             pst = (PreparedStatement) con.prepareStatement(query);
 
-            pst.setInt(1, em.getIndexNo()); //  add values th sql query
-            pst.setInt(2, em.getSemester()); //  add values th sql query
-            pst.setString(3, em.getSubject1()); //  add values th sql query
-            pst.setString(4, em.getSubject2()); //  add values th sql query
-            pst.setString(5, em.getSubject3()); //  add values th sql query
-            pst.setString(6, em.getSubject4()); //  add values th sql query
-            pst.setString(7, em.getSubject5()); //  add values th sql query
-            pst.setString(8, em.getSubject6()); //  add values th sql query
-            pst.setString(9, em.getSubject7()); //  add values th sql query
+            pst.executeUpdate(); // execute the sql query and delete the values to db table
 
-            pst.executeUpdate(); // execute the sql query and insert the values to db table
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    
+    public boolean deleteResult(int index, int sem){
+        try {
+            con = DriverManager.getConnection(url, username, password); //get the connection
+            String query = "DELETE FROM result WHERE indexNo="+index+" AND semester="+sem;
+            pst = (PreparedStatement) con.prepareStatement(query);
+
+            pst.executeUpdate(); // execute the sql query and delete the values to db table
 
             return true;
 
@@ -1095,8 +1461,7 @@ public class DBOperation {
         try {
             checkIndex();
             con = DriverManager.getConnection(url, username, password); //get the connection
-
-            System.out.println("------>"+em.getIndexNo());
+            System.out.println("delete ------>"+em.getIndexNo());
             String query = "DELETE FROM undergraduate_student WHERE indexNo="+em.getIndexNo();
             pst = (PreparedStatement) con.prepareStatement(query);
 
@@ -1125,8 +1490,7 @@ public class DBOperation {
         try {
             checkIndex();
             con = DriverManager.getConnection(url, username, password); //get the connection
-            
-            System.out.println("------>"+em.getIndexNo());
+            System.out.println("delete ------>"+em.getIndexNo());
             String query = "DELETE FROM postgraduate_student WHERE indexNo="+em.getIndexNo();
             pst = (PreparedStatement) con.prepareStatement(query);
 
@@ -1238,49 +1602,5 @@ public class DBOperation {
             }
         }
     }
-    
-    boolean addSubject(Subject c) {
-        try {
-            con = DriverManager.getConnection(url, username, password); //get the connection
-            String query = "INSERT INTO subject VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            pst = (PreparedStatement) con.prepareStatement(query);
-
-            pst.setString(1, c.getSubjectID()); //  add values th sql query
-            pst.setString(2, c.getSubjectName()); //  add values th sql query
-            pst.setString(3, c.getDegree()); //  add values th sql query
-            pst.setInt(4, c.getFees()); //  add values th sql query
-            pst.setInt(5, c.getYear()); //  add values th sql query
-            pst.setInt(6, c.getSemester()); //  add values th sql query
-            pst.setString(7, c.getLecturer()); //  add values th sql query
-            pst.setString(8, c.getInstructors()); //  add values th sql query
-            pst.setString(9, c.getTimeSchedule()); //  add values th sql query
-            pst.setInt(10, c.getNoOfAssignment()); //  add values th sql query
-            pst.setInt(11, c.getCredit()); //  add values th sql query
-            pst.setString(12, c.getcompulsoryType()); //  add values th sql query
-            pst.setString(13, c.getPlaceLecture()); //  add values th sql query
-            pst.setString(14, c.getPlacePractical()); //  add values th sql query
-            pst.setString(15, c.getNote()); //  add values th sql query
-
-            pst.executeUpdate(); // execute the sql query and insert the values to db table
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-
-        } finally {
-            try {
-                if (pst != null) {
-                    pst.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-
-    }
+  
 }

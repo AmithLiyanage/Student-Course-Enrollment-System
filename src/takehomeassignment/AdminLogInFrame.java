@@ -254,6 +254,7 @@ public class AdminLogInFrame extends javax.swing.JFrame {
             if (val == 0) {
                 AdminViewFrame a = new AdminViewFrame();
                 a.setVisible(true);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Passworrd Incorrect");
                 txtUsername.setText("");

@@ -46,8 +46,7 @@ public class UpdateSubjectFrame extends javax.swing.JFrame {
         ddCompulsoryType.setSelectedItem(co.getcompulsoryType());
         txtPlaceLecture.setText(co.getPlaceLecture());
         txtPlacePractical.setText(co.getPlacePractical());
-        txtNote.setText(co.getNote());
-        
+        txtNote.setText(co.getNote());   
     }
 
     /**

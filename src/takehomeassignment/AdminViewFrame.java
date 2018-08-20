@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
     ArrayList<Lecturer> LecList;
     ArrayList<Instructor> InsList;
     ArrayList<Subject> SubjectList;
-    
+    ArrayList<StudentCourseReg> CourseRegList;
+    ArrayList<Marks> MarksList;
     DBOperation dbOps = new DBOperation();
 
     public AdminViewFrame() {
@@ -37,6 +39,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
         loadLecturer();
         loadInstructor();
         loadSubject();
+        loadCourseReg();
+        loadMarkSheet();
     }
 
     void loadStudent() {
@@ -56,23 +60,35 @@ public class AdminViewFrame extends javax.swing.JFrame {
         PostgraduateStudentDetails PstDetails = new PostgraduateStudentDetails(PstList);
         tblPostgraduateStudent.setModel(PstDetails);
     }
-    
+
     void loadLecturer() {
         LecList = dbOps.getLecturer();
         LecturerDetails LecDetails = new LecturerDetails(LecList);
         tblLecturer.setModel(LecDetails);
     }
-    
+
     void loadInstructor() {
         InsList = dbOps.getInstructor();
         InstructorDetails InsDetails = new InstructorDetails(InsList);
         tblInstructer.setModel(InsDetails);
     }
-    
+
     void loadSubject() {
         SubjectList = dbOps.getSubject();
         SubjectDetails SubDetails = new SubjectDetails(SubjectList);
         tblSubject.setModel(SubDetails);
+    }
+
+    void loadCourseReg() {
+        CourseRegList = dbOps.getCourseReg();
+        CourseRegDetails CourseDetails = new CourseRegDetails(CourseRegList);
+        tblCourseReg.setModel(CourseDetails);
+    }
+
+    public void loadMarkSheet() {
+        MarksList = dbOps.getMarks();
+        MarksDetails MarksD = new MarksDetails(MarksList);
+        tblMarks.setModel(MarksD);
     }
 
     /**
@@ -106,7 +122,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblUndergraduateStudent = new javax.swing.JTable();
         btnViewUndegraduateStudent = new javax.swing.JButton();
-        btnUpdateStudent1 = new javax.swing.JButton();
         btnUpdateUndegraduateStudent = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -134,15 +149,28 @@ public class AdminViewFrame extends javax.swing.JFrame {
         btnDeleteSubject = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblSubject = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        btnDeleteCourseReg = new javax.swing.JButton();
+        btnNotPay = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btnPayed = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblCourseReg = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
+        btnAddMarks = new javax.swing.JButton();
+        btnUpdateMarks = new javax.swing.JButton();
+        btnRemoveMarks = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblMarks = new javax.swing.JTable();
+        btnSendEmail1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        btnSendEmail = new javax.swing.JButton();
         btnMainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelTopBar2.setBackground(new java.awt.Color(102, 255, 102));
         jPanelTopBar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -200,8 +228,7 @@ public class AdminViewFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelTopBar2);
-        jPanelTopBar2.setBounds(0, 0, 1220, 30);
+        getContentPane().add(jPanelTopBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
 
@@ -243,14 +270,15 @@ public class AdminViewFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 20, 1380, 110);
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1380, 110));
 
         jPanelBackground.setBackground(new java.awt.Color(204, 255, 204));
-        jPanelBackground.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 51)));
 
         jPanal.setForeground(new java.awt.Color(0, 153, 153));
         jPanal.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
         btnAddStudent.setBackground(new java.awt.Color(31, 58, 147));
         btnAddStudent.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -339,6 +367,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
 
         jPanal.addTab("Student", jPanel3);
 
+        jPanel8.setBackground(new java.awt.Color(204, 204, 255));
+
         tblUndergraduateStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -361,11 +391,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
                 btnViewUndegraduateStudentActionPerformed(evt);
             }
         });
-
-        btnUpdateStudent1.setBackground(new java.awt.Color(31, 58, 147));
-        btnUpdateStudent1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnUpdateStudent1.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdateStudent1.setText("Update Student");
 
         btnUpdateUndegraduateStudent.setBackground(new java.awt.Color(31, 58, 147));
         btnUpdateUndegraduateStudent.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -390,11 +415,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnUpdateUndegraduateStudent)))
                 .addGap(18, 18, 18))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(0, 392, Short.MAX_VALUE)
-                    .addComponent(btnUpdateStudent1)
-                    .addGap(0, 392, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,14 +426,11 @@ public class AdminViewFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(0, 224, Short.MAX_VALUE)
-                    .addComponent(btnUpdateStudent1)
-                    .addGap(0, 224, Short.MAX_VALUE)))
         );
 
         jPanal.addTab("Undergraduate Student", jPanel8);
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 255));
 
         tblPostgraduateStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -475,6 +492,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
         );
 
         jPanal.addTab("Postgraduate Student", jPanel9);
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
         btnAddLecturer.setBackground(new java.awt.Color(31, 58, 147));
         btnAddLecturer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -563,6 +582,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
 
         jPanal.addTab("Lecturer", jPanel4);
 
+        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+
         btnAddInstructor.setBackground(new java.awt.Color(31, 58, 147));
         btnAddInstructor.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnAddInstructor.setForeground(new java.awt.Color(255, 255, 255));
@@ -649,6 +670,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
         );
 
         jPanal.addTab("Instructor", jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(204, 204, 255));
 
         btnAddSubject.setBackground(new java.awt.Color(31, 58, 147));
         btnAddSubject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -737,34 +760,201 @@ public class AdminViewFrame extends javax.swing.JFrame {
 
         jPanal.addTab("Subject", jPanel6);
 
+        jPanel7.setBackground(new java.awt.Color(204, 204, 255));
+
+        btnDeleteCourseReg.setBackground(new java.awt.Color(31, 58, 147));
+        btnDeleteCourseReg.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnDeleteCourseReg.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteCourseReg.setText("Delete CourseReg");
+        btnDeleteCourseReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCourseRegActionPerformed(evt);
+            }
+        });
+
+        btnNotPay.setBackground(new java.awt.Color(31, 58, 147));
+        btnNotPay.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNotPay.setForeground(new java.awt.Color(255, 255, 255));
+        btnNotPay.setText("Not Pay");
+        btnNotPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotPayActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel6.setText(" Mark here some student  Pay or Not  each semester");
+
+        btnPayed.setBackground(new java.awt.Color(31, 58, 147));
+        btnPayed.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnPayed.setForeground(new java.awt.Color(255, 255, 255));
+        btnPayed.setText("Payed");
+        btnPayed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayedActionPerformed(evt);
+            }
+        });
+
+        tblCourseReg.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane9.setViewportView(tblCourseReg);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteCourseReg)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(btnPayed)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNotPay)))
+                .addGap(21, 21, 21))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(btnDeleteCourseReg, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNotPay, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPayed, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jPanal.addTab("Course Registration", jPanel7);
+
+        jPanel10.setBackground(new java.awt.Color(204, 204, 255));
+
+        btnAddMarks.setBackground(new java.awt.Color(31, 58, 147));
+        btnAddMarks.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAddMarks.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddMarks.setText("Add Marks");
+        btnAddMarks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMarksActionPerformed(evt);
+            }
+        });
+
+        btnUpdateMarks.setBackground(new java.awt.Color(31, 58, 147));
+        btnUpdateMarks.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnUpdateMarks.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateMarks.setText("Update Marks");
+        btnUpdateMarks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateMarksActionPerformed(evt);
+            }
+        });
+
+        btnRemoveMarks.setBackground(new java.awt.Color(31, 58, 147));
+        btnRemoveMarks.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnRemoveMarks.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemoveMarks.setText("RemoveMarks");
+        btnRemoveMarks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveMarksActionPerformed(evt);
+            }
+        });
+
+        tblMarks.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "cIndexNo", "cSemester", "cSub1", "cSub2", "cSub3", "cSub4", "cSub5", "cSub6", "cGPA", "cEmail", "cSendOrNot"
+            }
+        ));
+        tblMarks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMarksMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tblMarks);
+
+        btnSendEmail1.setBackground(new java.awt.Color(0, 153, 153));
+        btnSendEmail1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        btnSendEmail1.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendEmail1.setText("Send Email");
+        btnSendEmail1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendEmail1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setForeground(new java.awt.Color(0, 204, 51));
+        jLabel7.setText("For send Email, select the Row");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 915, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(btnSendEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnAddMarks)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdateMarks)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRemoveMarks)))
+                .addGap(21, 21, 21))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddMarks, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateMarks, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRemoveMarks, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSendEmail1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanal.addTab("Other", jPanel10);
+        jPanal.addTab("Marks", jPanel10);
 
         jPanel1.setBackground(new java.awt.Color(37, 116, 169));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/June 2018.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Aug.png"))); // NOI18N
 
-        btnSendEmail.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        btnSendEmail.setText("Send Email");
-        btnSendEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSendEmailActionPerformed(evt);
-            }
-        });
-
-        btnMainMenu.setBackground(new java.awt.Color(31, 58, 147));
         btnMainMenu.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        btnMainMenu.setForeground(new java.awt.Color(255, 255, 255));
+        btnMainMenu.setForeground(new java.awt.Color(0, 153, 153));
         btnMainMenu.setText("Main Menu");
         btnMainMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -780,25 +970,21 @@ public class AdminViewFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnMainMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addComponent(btnSendEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel4)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(73, 73, 73)
+                .addComponent(jLabel4)
+                .addGap(65, 65, 65)
                 .addComponent(btnMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-                .addComponent(btnSendEmail)
-                .addGap(35, 35, 35))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelBackgroundLayout = new javax.swing.GroupLayout(jPanelBackground);
@@ -807,7 +993,7 @@ public class AdminViewFrame extends javax.swing.JFrame {
             jPanelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBackgroundLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jPanal, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
@@ -822,8 +1008,9 @@ public class AdminViewFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        getContentPane().add(jPanelBackground);
-        jPanelBackground.setBounds(0, 0, 1220, 690);
+        jPanal.getAccessibleContext().setAccessibleName("AdminArea");
+
+        getContentPane().add(jPanelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, -1));
 
         setSize(new java.awt.Dimension(1219, 687));
         setLocationRelativeTo(null);
@@ -862,7 +1049,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
         newCourse.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         newCourse.addWindowListener(new WindowListener() {
-            
             @Override
             public void windowOpened(WindowEvent e) {
             }
@@ -901,7 +1087,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
         newIns.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         newIns.addWindowListener(new WindowListener() {
-            
             @Override
             public void windowOpened(WindowEvent e) {
             }
@@ -939,7 +1124,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
         newLec.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         newLec.addWindowListener(new WindowListener() {
-            
             @Override
             public void windowOpened(WindowEvent e) {
             }
@@ -1113,7 +1297,6 @@ public class AdminViewFrame extends javax.swing.JFrame {
         updateStdU.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                
             }
 
             @Override
@@ -1155,11 +1338,10 @@ public class AdminViewFrame extends javax.swing.JFrame {
         updateStdP.setVisible(true);
         updateStdP.setFields(PstList.get(tblPostgraduateStudent.getSelectedRow()));
         updateStdP.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         updateStdP.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                
             }
 
             @Override
@@ -1208,11 +1390,10 @@ public class AdminViewFrame extends javax.swing.JFrame {
         updateLec.setVisible(true);
         updateLec.setFields(LecList.get(tblLecturer.getSelectedRow()));
         updateLec.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         updateLec.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                
             }
 
             @Override
@@ -1247,11 +1428,10 @@ public class AdminViewFrame extends javax.swing.JFrame {
         updateIns.setVisible(true);
         updateIns.setFields(InsList.get(tblInstructer.getSelectedRow()));
         updateIns.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         updateIns.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                
             }
 
             @Override
@@ -1286,11 +1466,10 @@ public class AdminViewFrame extends javax.swing.JFrame {
         updateCos.setVisible(true);
         updateCos.setFields(SubjectList.get(tblSubject.getSelectedRow()));
         updateCos.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
         updateCos.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
-                
             }
 
             @Override
@@ -1300,6 +1479,7 @@ public class AdminViewFrame extends javax.swing.JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 loadSubject();
+                loadCourseReg();
             }
 
             @Override
@@ -1434,16 +1614,173 @@ public class AdminViewFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnDeleteSubjectActionPerformed
 
-    private void btnSendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmailActionPerformed
-        SendEmail s = new SendEmail();
-        s.send();
-    }//GEN-LAST:event_btnSendEmailActionPerformed
-
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         HomeFrame n = new HomeFrame();
         n.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMainMenuActionPerformed
+
+    private void btnDeleteCourseRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCourseRegActionPerformed
+        int index3 = CourseRegList.get(tblCourseReg.getSelectedRow()).getIndexNo();
+        int sem3 = CourseRegList.get(tblCourseReg.getSelectedRow()).getSemester();
+        dbOps.deleteStuCourseReg(index3, sem3);
+        dbOps.deleteResult(index3, sem3);
+        loadCourseReg();
+        loadMarkSheet();
+    }//GEN-LAST:event_btnDeleteCourseRegActionPerformed
+
+    private void btnAddMarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMarksActionPerformed
+        AddMarksFrame addM = new AddMarksFrame();
+        addM.setVisible(true);
+        addM.setFields(MarksList.get(tblMarks.getSelectedRow()));
+        addM.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        System.out.println("rrrr");
+        addM.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadMarkSheet();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+    }//GEN-LAST:event_btnAddMarksActionPerformed
+
+    private void btnUpdateMarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateMarksActionPerformed
+        UpdateMarksFrame upM = new UpdateMarksFrame();
+        upM.setVisible(true);
+        upM.setFields(MarksList.get(tblMarks.getSelectedRow()));
+        upM.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        upM.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadMarkSheet();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+    }//GEN-LAST:event_btnUpdateMarksActionPerformed
+
+    private void btnRemoveMarksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveMarksActionPerformed
+        int index5 = MarksList.get(tblMarks.getSelectedRow()).getIndexNo();
+        int sem5 = MarksList.get(tblMarks.getSelectedRow()).getSemester();
+        dbOps.resetMarks(index5, sem5);
+        loadMarkSheet();
+    }//GEN-LAST:event_btnRemoveMarksActionPerformed
+
+    private void btnSendEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmail1ActionPerformed
+        SendEmail s = new SendEmail();
+
+        String selected4 = MarksList.get(tblMarks.getSelectedRow()).getSendOrNot();
+        int index4 = MarksList.get(tblMarks.getSelectedRow()).getIndexNo();
+        int sem4 = MarksList.get(tblMarks.getSelectedRow()).getSemester();
+
+        String rSub1 = MarksList.get(tblMarks.getSelectedRow()).getSubject1();
+        String rSub2 = MarksList.get(tblMarks.getSelectedRow()).getSubject2();
+        String rSub3 = MarksList.get(tblMarks.getSelectedRow()).getSubject3();
+        String rSub4 = MarksList.get(tblMarks.getSelectedRow()).getSubject4();
+        String rSub5 = MarksList.get(tblMarks.getSelectedRow()).getSubject5();
+        String rSub6 = MarksList.get(tblMarks.getSelectedRow()).getSubject6();
+        double rGPA = MarksList.get(tblMarks.getSelectedRow()).getGPA();
+        String result = "-------------- Semester Result -----------------\n\n"
+                + "\t  Subject 1 = " + rSub1 + "\n"
+                + "\t  Subject 2 = " + rSub2 + "\n"
+                + "\t  Subject 3 = " + rSub3 + "\n"
+                + "\t  Subject 4 = " + rSub4 + "\n"
+                + "\t  Subject 5 = " + rSub5 + "\n"
+                + "\t  Subject 6 = " + rSub6 + "\n"
+                + "\t  GPA       = " + rGPA + "\n\n"
+                + " result send from NSBM resut Center";
+
+        String email = MarksList.get(tblMarks.getSelectedRow()).getEmail();
+        //s.send(email, result);
+        //s.send("amith.liyanage.9@gmail.com", result);
+
+        boolean se = s.send(email, result);
+        if (se) {
+            //Data Inserted Successfully
+            if (selected4.equals("No")) {
+                dbOps.updateMarksSend(index4, sem4, "Yes");
+                loadMarkSheet();
+            }
+            JOptionPane.showMessageDialog(this, "Email send Successfully...");
+
+        } else {
+            //Data Insert not Successful
+            JOptionPane.showMessageDialog(this, "Oops, Error occured while Sending Email");
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_btnSendEmail1ActionPerformed
+
+    private void btnNotPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotPayActionPerformed
+        String selected1 = CourseRegList.get(tblCourseReg.getSelectedRow()).getPayedOrNot();
+        int index1 = CourseRegList.get(tblCourseReg.getSelectedRow()).getIndexNo();
+        int sem1 = CourseRegList.get(tblCourseReg.getSelectedRow()).getSemester();
+        if (selected1.equals("Yes")) {
+            dbOps.updateCourseRegPay(index1, sem1, "No");
+            loadCourseReg();
+        }
+    }//GEN-LAST:event_btnNotPayActionPerformed
+
+    private void btnPayedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayedActionPerformed
+        String selected2 = CourseRegList.get(tblCourseReg.getSelectedRow()).getPayedOrNot();
+        int index2 = CourseRegList.get(tblCourseReg.getSelectedRow()).getIndexNo();
+        int sem2 = CourseRegList.get(tblCourseReg.getSelectedRow()).getSemester();
+        if (selected2.equals("No")) {
+            dbOps.updateCourseRegPay(index2, sem2, "Yes");
+            loadCourseReg();
+        }
+    }//GEN-LAST:event_btnPayedActionPerformed
+
+    private void tblMarksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMarksMouseClicked
+//        int rowIndex = tblMarks.getSelectedRow();
+//        int colIndex = tblMarks.getSelectedColumn();
+//        System.out.println(rowIndex+", "+colIndex);
+    }//GEN-LAST:event_tblMarksMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1482,19 +1819,24 @@ public class AdminViewFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddInstructor;
     private javax.swing.JButton btnAddLecturer;
+    private javax.swing.JButton btnAddMarks;
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnAddSubject;
+    private javax.swing.JButton btnDeleteCourseReg;
     private javax.swing.JButton btnDeleteInstructor;
     private javax.swing.JButton btnDeleteLecturer;
     private javax.swing.JButton btnDeleteStudent;
     private javax.swing.JButton btnDeleteSubject;
     private javax.swing.JButton btnMainMenu;
-    private javax.swing.JButton btnSendEmail;
+    private javax.swing.JButton btnNotPay;
+    private javax.swing.JButton btnPayed;
+    private javax.swing.JButton btnRemoveMarks;
+    private javax.swing.JButton btnSendEmail1;
     private javax.swing.JButton btnUpdateInstructor;
     private javax.swing.JButton btnUpdateLecturer;
+    private javax.swing.JButton btnUpdateMarks;
     private javax.swing.JButton btnUpdatePostgraduateStudent;
     private javax.swing.JButton btnUpdateStudent;
-    private javax.swing.JButton btnUpdateStudent1;
     private javax.swing.JButton btnUpdateSubject;
     private javax.swing.JButton btnUpdateUndegraduateStudent;
     private javax.swing.JButton btnViewInstructor;
@@ -1509,6 +1851,8 @@ public class AdminViewFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTabbedPane jPanal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1517,6 +1861,7 @@ public class AdminViewFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelBackground;
@@ -1527,10 +1872,14 @@ public class AdminViewFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblClose3;
     private javax.swing.JLabel lblMinimize3;
+    private javax.swing.JTable tblCourseReg;
     private javax.swing.JTable tblInstructer;
     private javax.swing.JTable tblLecturer;
+    private javax.swing.JTable tblMarks;
     private javax.swing.JTable tblPostgraduateStudent;
     private javax.swing.JTable tblStudent;
     private javax.swing.JTable tblSubject;

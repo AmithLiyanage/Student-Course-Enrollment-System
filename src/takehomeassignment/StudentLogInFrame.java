@@ -200,7 +200,7 @@ public class StudentLogInFrame extends javax.swing.JFrame {
                         .addComponent(btnNewUser)
                         .addGap(18, 18, 18)
                         .addComponent(btnLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,9 +221,9 @@ public class StudentLogInFrame extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 390, 287);
+        jPanel1.setBounds(0, 0, 380, 287);
 
-        setSize(new java.awt.Dimension(371, 287));
+        setSize(new java.awt.Dimension(369, 287));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -241,6 +241,7 @@ public class StudentLogInFrame extends javax.swing.JFrame {
                     StudentViewFrame s = new StudentViewFrame();
                     s.setStudentName(valid);
                     s.setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Passworrd Incorrect");
                     txtUsername.setText("");

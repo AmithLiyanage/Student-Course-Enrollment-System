@@ -20,6 +20,8 @@ public class StudentCourseReg {
     private String Subject5;
     private String Subject6;
     private String Subject7;
+    private int fees;
+    private String payedOrNot;
 
     /**
      * @return the indexNo
@@ -145,6 +147,34 @@ public class StudentCourseReg {
      */
     public void setSubject7(String Subject7) {
         this.Subject7 = Subject7;
+    }
+
+    /**
+     * @return the fees
+     */
+    public int getFees() {
+        return fees;
+    }
+
+    /**
+     * @param fees the fees to set
+     */
+    public void setFees(int fees) {
+        this.fees = fees;
+    }
+
+    /**
+     * @return the payedOrNot
+     */
+    public String getPayedOrNot() {
+        return payedOrNot;
+    }
+
+    /**
+     * @param payedOrNot the payedOrNot to set
+     */
+    public void setPayedOrNot(String payedOrNot) {
+        this.payedOrNot = payedOrNot;
     }
     
     

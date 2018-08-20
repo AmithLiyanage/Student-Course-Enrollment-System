@@ -418,8 +418,8 @@ public class UndergraduateStudentFrame extends javax.swing.JFrame {
         if(result){
             //data inserted Successfully
             JOptionPane.showMessageDialog(this, "<html> Successfully Registered !!. <br>   Your Index No <color=\"#00FFFF\">'"+dbOpsU.index+"'</color> <html>");
-            HomeFrame h = new HomeFrame();
-            h.setVisible(true);
+//            HomeFrame h = new HomeFrame();
+//            h.setVisible(true);
             this.dispose();
         }else{
             //data insert not Successful

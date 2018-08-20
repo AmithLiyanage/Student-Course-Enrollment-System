@@ -18,10 +18,10 @@ public class TakeHomeAssignment {
         //u.setVisible(true);
         //OtherLogInFrame u = new OtherLogInFrame();
         //AdminViewFrame u = new AdminViewFrame();
-        StudentViewFrame u = new StudentViewFrame();
+        //StudentViewFrame u = new StudentViewFrame();
         //AdminLogInFrame u = new AdminLogInFrame();
         //NewUserFrame u = new NewUserFrame();
-        //HomeFrame u = new HomeFrame();
+        HomeFrame u = new HomeFrame();
         u.setVisible(true);
     }
 }

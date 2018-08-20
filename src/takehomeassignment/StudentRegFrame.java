@@ -387,7 +387,6 @@ public class StudentRegFrame extends javax.swing.JFrame {
         ns.setFaculty(ddFaculty.getSelectedItem().toString());
         ns.setNic(txtNIC.getText());
         ns.setGender(this.gender);  // do that thing "radioMaleActionPerformed", "radioFemaleActionPerformed" method
-        //System.out.println(s.getGender());
         ns.setAddress(txtAddress.getText());
         ns.setContactNo(Integer.parseInt(txtContactNo.getText()));
         ns.setEmail(txtEmail.getText());

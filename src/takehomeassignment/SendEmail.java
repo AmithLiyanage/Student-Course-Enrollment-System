@@ -14,13 +14,13 @@ import javax.mail.internet.*;
  */
 public class SendEmail {
 
-    public void send() {
+    public boolean send(String mail, String result) {
 
         String host = "mail.javatpoint.com";
         final String user = "javaboy7995@gmail.com";//change accordingly  
         final String password = "#qwer1234";//change accordingly  
 
-        String to = "isurunimantha1@gmail.com";//change accordingly  
+        String to = mail;//change accordingly  
 
         //Get the session object  
         Properties props = new Properties();
@@ -46,15 +46,18 @@ public class SendEmail {
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject("javatpoint");
-            message.setText("This is simple program of sending email using JavaMail API");
+            message.setText(result);
+            //message.setText("This is simple program of sending email using JavaMail API");
 
             //send the message  
             Transport.send(message);
 
             System.out.println("message sent successfully...");
+            return true;
 
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

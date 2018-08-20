@@ -94,10 +94,10 @@ public class UpdateLectureFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelTopBar.setBackground(new java.awt.Color(102, 255, 102));
-        jPanelTopBar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelTopBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 51)));
 
         lblMinimize1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblMinimize1.setForeground(new java.awt.Color(102, 102, 255));
@@ -137,11 +137,11 @@ public class UpdateLectureFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopBarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMinimize1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblClose1)
-                .addGap(20, 20, 20))
+                .addGap(34, 34, 34))
         );
         jPanelTopBarLayout.setVerticalGroup(
             jPanelTopBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,10 +153,9 @@ public class UpdateLectureFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanelTopBar);
-        jPanelTopBar.setBounds(0, 0, 520, 30);
+        getContentPane().add(jPanelTopBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 30));
 
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 51)));
 
         btnSubmit.setBackground(new java.awt.Color(31, 58, 147));
         btnSubmit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -397,7 +396,7 @@ public class UpdateLectureFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(182, 182, 182)
                         .addComponent(jLabel1)))
-                .addGap(32, 32, 32))
+                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,10 +410,9 @@ public class UpdateLectureFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 520, 720);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 700));
 
-        setSize(new java.awt.Dimension(519, 714));
+        setSize(new java.awt.Dimension(520, 700));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

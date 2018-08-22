@@ -1727,13 +1727,13 @@ public class AdminViewFrame extends javax.swing.JFrame {
         String rSub6 = MarksList.get(tblMarks.getSelectedRow()).getSubject6();
         double rGPA = MarksList.get(tblMarks.getSelectedRow()).getGPA();
         String result = "-------------- Semester Result -----------------\n\n"
-                + "\t  Subject 1 = " + rSub1 + "\n"
-                + "\t  Subject 2 = " + rSub2 + "\n"
-                + "\t  Subject 3 = " + rSub3 + "\n"
-                + "\t  Subject 4 = " + rSub4 + "\n"
-                + "\t  Subject 5 = " + rSub5 + "\n"
-                + "\t  Subject 6 = " + rSub6 + "\n"
-                + "\t  GPA       = " + rGPA + "\n\n"
+                + "\t  Subject 1 = " + rSub1 + ",\n"
+                + "\t  Subject 2 = " + rSub2 + ",\n"
+                + "\t  Subject 3 = " + rSub3 + ",\n"
+                + "\t  Subject 4 = " + rSub4 + ",\n"
+                + "\t  Subject 5 = " + rSub5 + ",\n"
+                + "\t  Subject 6 = " + rSub6 + ",\n"
+                + "\t  GPA       = " + rGPA + ",\n\n"
                 + " result send from NSBM resut Center";
 
         String email = MarksList.get(tblMarks.getSelectedRow()).getEmail();
